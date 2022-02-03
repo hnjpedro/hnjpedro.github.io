@@ -3,10 +3,14 @@ const canvas = document.getElementById("example");
 const ctx = canvas.getContext("2d");
 const basket = document.getElementById("bball-court");
 const soccer = document.getElementById("soccer");
+const nfl = document.getElementById("nfl");
 const volley = document.getElementById("vball-court");
 basket.addEventListener("click", bBallCourt);
 soccer.addEventListener("click", footballField);
+nfl.addEventListener("click", nflField);
 volley.addEventListener("click", vBallCourt);
+
+nflField();
 
 function aguarde() {
   ctx.fillStyle = "white";
@@ -18,13 +22,13 @@ function aguarde() {
   }, 1000);
 }
 
-function vBallCourt() {
+function bBallCourt() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   setTimeout(() => {
-    leftSidevBall();
-    rightSidevBall();
+    leftSideCourt();
+    rightSideCourt();
   }, 1001);
-  canvas.style.background = "#10abbf";
+  canvas.style.background = "rgb(180,152,96)";
   aguarde();
 }
 
@@ -38,59 +42,26 @@ function footballField() {
   aguarde();
 }
 
-function leftSideField() {
-  // grande e pequena áreas
-  ctx.beginPath();
-  ctx.lineWidth = 4;
-  ctx.strokeStyle = "white";
-  ctx.strokeRect(0, 55, 200, 290);
-  ctx.strokeRect(0, 125, 70, 150);
-
-  // marca do pênalti
-  ctx.beginPath();
-  ctx.fillStyle = "white";
-  ctx.arc(150, 200, 8, 0, Math.PI * 2);
-  ctx.fill();
-
-  // meia-lua
-  ctx.beginPath();
-  ctx.arc(137, 200, 90, Math.PI * 1.75, Math.PI * 2.25);
-  ctx.stroke();
-
-  // quartos de círculo (escanteios)
-  ctx.beginPath();
-  ctx.arc(0, 0, 15, Math.PI * 2, Math.PI * 2.5);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.arc(0, 400, 15, Math.PI * 2, Math.PI * 2.5, 1);
-  ctx.stroke();
-
-  // círculo e linha centrais
-  ctx.beginPath();
-  ctx.moveTo(400, 0);
-  ctx.lineTo(400, 400);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.arc(400, 200, 50, Math.PI * 0.5, Math.PI * 1.5);
-  ctx.stroke();
-}
-
-function bBallCourt() {
+function nflField() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   setTimeout(() => {
-    leftSideCourt();
-    rightSideCourt();
+    leftSideNFLField();
+    // rightSideNFLField()
   }, 1001);
-  canvas.style.background = "rgb(180,152,96)";
-  aguarde();
+  leftSideNFLField();
+
+  canvas.style.background = "rgb(41,165,0)";
+  // aguarde();
 }
 
-function rightSideField() {
-  ctx.translate(canvas.width, 0);
-  ctx.scale(-1, 1);
-  leftSideField();
-  ctx.translate(canvas.width, 0);
-  ctx.scale(-1, 1);
+function vBallCourt() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  setTimeout(() => {
+    leftSidevBall();
+    rightSidevBall();
+  }, 1001);
+  canvas.style.background = "#10abbf";
+  aguarde();
 }
 
 function leftSideCourt() {
@@ -169,7 +140,95 @@ function rightSideCourt() {
   ctx.scale(-1, 1);
 }
 
+function leftSideField() {
+  // grande e pequena áreas
+  ctx.beginPath();
+  ctx.lineWidth = 4;
+  ctx.strokeStyle = "white";
+  ctx.strokeRect(0, 55, 200, 290);
+  ctx.strokeRect(0, 125, 70, 150);
+
+  // marca do pênalti
+  ctx.beginPath();
+  ctx.fillStyle = "white";
+  ctx.arc(150, 200, 8, 0, Math.PI * 2);
+  ctx.fill();
+
+  // meia-lua
+  ctx.beginPath();
+  ctx.arc(137, 200, 90, Math.PI * 1.75, Math.PI * 2.25);
+  ctx.stroke();
+
+  // quartos de círculo (escanteios)
+  ctx.beginPath();
+  ctx.arc(0, 0, 15, Math.PI * 2, Math.PI * 2.5);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(0, 400, 15, Math.PI * 2, Math.PI * 2.5, 1);
+  ctx.stroke();
+
+  // círculo e linha centrais
+  ctx.beginPath();
+  ctx.moveTo(400, 0);
+  ctx.lineTo(400, 400);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(400, 200, 50, Math.PI * 0.5, Math.PI * 1.5);
+  ctx.stroke();
+}
+
+function rightSideField() {
+  ctx.translate(canvas.width, 0);
+  ctx.scale(-1, 1);
+  leftSideField();
+  ctx.translate(canvas.width, 0);
+  ctx.scale(-1, 1);
+}
+
+function leftSideNFLField() {
+  // marcações de 10 jardas e end zone
+  ctx.beginPath();
+  ctx.fillStyle = "rgb(9,93,12)";
+  ctx.strokeStyle = "white";
+  ctx.lineWidth = 3;
+  ctx.fillRect(0, 0, (canvas.width * 1) / 12, canvas.height);
+  ctx.moveTo((canvas.width * 1) / 12, 0);
+  ctx.lineTo((canvas.width * 1) / 12, canvas.height);
+  ctx.stroke();
+  ctx.closePath();
+
+  for (let i = 1 / 12; i <= 1 / 2; i += 1 / 24) {
+    ctx.beginPath();
+    ctx.lineWidth = 2;
+    ctx.moveTo(canvas.width * i, 0);
+    ctx.lineTo(canvas.width * i, canvas.height);
+    ctx.stroke();
+  }
+
+  // marcações superiores
+  for (let i = 1 / 12; i < 1 / 2; i += (1 / 24) / 5) {
+    if (i % ((1/12) + (1 / 24)) == 0) {
+      console.log(i)
+    } else {
+      ctx.beginPath();
+      ctx.lineWidth = 3.5;
+      ctx.moveTo(canvas.width * i, 10);
+      ctx.lineTo(canvas.width * i, 15);
+      ctx.stroke();
+    }
+  }
+}
+
+function rightSideNFLField() {
+  ctx.translate(canvas.width, 0);
+  ctx.scale(-1, 1);
+  leftSideNFLField();
+  ctx.translate(canvas.width, 0);
+  ctx.scale(-1, 1);
+}
+
 function leftSidevBall() {
+  // quadra
   ctx.beginPath();
   ctx.fillStyle = "#e68064";
   ctx.fillRect(
@@ -189,6 +248,7 @@ function leftSidevBall() {
   );
   ctx.closePath();
 
+  // pontilhado superior
   ctx.beginPath();
   ctx.setLineDash([6, 8]);
   ctx.moveTo((canvas.width * 1) / 8, (canvas.height * 1) / 10);
@@ -197,12 +257,14 @@ function leftSidevBall() {
   ctx.stroke();
   ctx.closePath();
 
+  // linha dos 3 metros
   ctx.beginPath();
   ctx.setLineDash([0, 0]);
   ctx.moveTo((canvas.width * 3) / 8, (canvas.height * 1) / 5);
   ctx.lineTo((canvas.width * 3) / 8, (canvas.height * 4) / 5);
   ctx.stroke();
 
+  // pontilhado inferior
   ctx.beginPath();
   ctx.setLineDash([6, 8]);
   ctx.moveTo((canvas.width * 3) / 8, (canvas.height * 4) / 5);
