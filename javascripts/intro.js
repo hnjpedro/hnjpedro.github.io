@@ -97,13 +97,24 @@ function roundedRect(ctx, x, y, width, height, radius) {
 
 ctx.beginPath();
 ctx.strokeStyle = '#ffffff';
-ctx.lineWidth = 4;
+ctx.lineWidth = 3;
 ctx.moveTo(0,50);
 ctx.lineTo(65,50);
 ctx.stroke();
 ctx.closePath();
 
 ctx.beginPath();
-ctx.arc(65,150,80,Math.PI * .5,Math.Pi * 1.5,1);
+ctx.moveTo(0,250);
+ctx.lineTo(65,250);
 ctx.stroke();
-ctx.closePath()
+ctx.closePath();
+
+ctx.beginPath();
+ctx.arc(65, 150, 100, Math.PI * 1.5, Math.PI * 2.5);
+ctx.stroke();
+ctx.closePath();
+
+ctx.fillStyle ='rgb(222,148,77)';
+ctx.fillRect(0,117,120,66);
+ctx.strokeRect(0,105,120,90);
+ctx.strokeRect(0,112,120676);
