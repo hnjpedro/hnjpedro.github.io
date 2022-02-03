@@ -3,8 +3,10 @@ const canvas = document.getElementById("example");
 const ctx = canvas.getContext("2d");
 const basket = document.getElementById("bball-court");
 const soccer = document.getElementById("soccer");
+const volley = document.getElementById("vball-court");
 basket.addEventListener("click", bBallCourt);
 soccer.addEventListener("click", footballField);
+volley.addEventListener("click", vBallCourt);
 
 function aguarde() {
   ctx.fillStyle = "white";
@@ -14,6 +16,16 @@ function aguarde() {
   setTimeout(() => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
   }, 1000);
+}
+
+function vBallCourt() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  setTimeout(() => {
+    leftSidevBall();
+    rightSidevBall();
+  }, 1001);
+  canvas.style.background = "#10abbf";
+  aguarde();
 }
 
 function footballField() {
@@ -30,37 +42,37 @@ function leftSideField() {
   // grande e pequena áreas
   ctx.beginPath();
   ctx.lineWidth = 4;
-  ctx.strokeStyle = 'white';
-  ctx.strokeRect(0,55,200,290);
-  ctx.strokeRect(0,125,70,150);
+  ctx.strokeStyle = "white";
+  ctx.strokeRect(0, 55, 200, 290);
+  ctx.strokeRect(0, 125, 70, 150);
 
-  // marca do pênalti  
+  // marca do pênalti
   ctx.beginPath();
-  ctx.fillStyle = 'white';
-  ctx.arc(150,200,8,0,Math.PI * 2);
-  ctx.fill()
+  ctx.fillStyle = "white";
+  ctx.arc(150, 200, 8, 0, Math.PI * 2);
+  ctx.fill();
 
   // meia-lua
   ctx.beginPath();
-  ctx.arc(137,200,90,Math.PI * 1.75, Math.PI * 2.25);
-  ctx.stroke()
+  ctx.arc(137, 200, 90, Math.PI * 1.75, Math.PI * 2.25);
+  ctx.stroke();
 
   // quartos de círculo (escanteios)
   ctx.beginPath();
-  ctx.arc(0,0,15,Math.PI * 2, Math.PI * 2.5);
-  ctx.stroke()
-  ctx.beginPath()
-  ctx.arc(0,400,15,Math.PI * 2, Math.PI * 2.5,1);
-  ctx.stroke()
+  ctx.arc(0, 0, 15, Math.PI * 2, Math.PI * 2.5);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(0, 400, 15, Math.PI * 2, Math.PI * 2.5, 1);
+  ctx.stroke();
 
   // círculo e linha centrais
   ctx.beginPath();
-  ctx.moveTo(400,0);
-  ctx.lineTo(400,400);
+  ctx.moveTo(400, 0);
+  ctx.lineTo(400, 400);
   ctx.stroke();
-  ctx.beginPath()
-  ctx.arc(400,200,50,Math.PI * 0.5,Math.PI * 1.5);
-  ctx.stroke()
+  ctx.beginPath();
+  ctx.arc(400, 200, 50, Math.PI * 0.5, Math.PI * 1.5);
+  ctx.stroke();
 }
 
 function bBallCourt() {
@@ -153,6 +165,56 @@ function rightSideCourt() {
   ctx.translate(canvas.width, 0);
   ctx.scale(-1, 1);
   leftSideCourt();
+  ctx.translate(canvas.width, 0);
+  ctx.scale(-1, 1);
+}
+
+function leftSidevBall() {
+  ctx.beginPath();
+  ctx.fillStyle = "#e68064";
+  ctx.fillRect(
+    (canvas.width * 1) / 8,
+    (canvas.height * 1) / 5,
+    (canvas.width * 3) / 8,
+    (canvas.height * 3) / 5
+  );
+  ctx.strokeStyle = "white";
+  ctx.setLineDash([0, 0]);
+  ctx.lineWidth = 2;
+  ctx.strokeRect(
+    (canvas.width * 1) / 8,
+    (canvas.height * 1) / 5,
+    (canvas.width * 3) / 8,
+    (canvas.height * 3) / 5
+  );
+  ctx.closePath();
+
+  ctx.beginPath();
+  ctx.setLineDash([6, 8]);
+  ctx.moveTo((canvas.width * 1) / 8, (canvas.height * 1) / 10);
+  ctx.lineTo((canvas.width * 3) / 8, (canvas.height * 1) / 10);
+  ctx.lineTo((canvas.width * 3) / 8, (canvas.height * 1) / 5);
+  ctx.stroke();
+  ctx.closePath();
+
+  ctx.beginPath();
+  ctx.setLineDash([0, 0]);
+  ctx.moveTo((canvas.width * 3) / 8, (canvas.height * 1) / 5);
+  ctx.lineTo((canvas.width * 3) / 8, (canvas.height * 4) / 5);
+  ctx.stroke();
+
+  ctx.beginPath();
+  ctx.setLineDash([6, 8]);
+  ctx.moveTo((canvas.width * 3) / 8, (canvas.height * 4) / 5);
+  ctx.lineTo((canvas.width * 3) / 8, (canvas.height * 4.5) / 5);
+  ctx.stroke();
+  ctx.closePath();
+}
+
+function rightSidevBall() {
+  ctx.translate(canvas.width, 0);
+  ctx.scale(-1, 1);
+  leftSidevBall();
   ctx.translate(canvas.width, 0);
   ctx.scale(-1, 1);
 }
