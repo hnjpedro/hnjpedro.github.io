@@ -5,14 +5,15 @@ const basket = document.getElementById("bball-court");
 const soccer = document.getElementById("soccer");
 const nfl = document.getElementById("nfl");
 const volley = document.getElementById("vball-court");
+var nflLogo = new Image();
+nflLogo.src = "../images/nfl-logo.png";
 basket.addEventListener("click", bBallCourt);
 soccer.addEventListener("click", footballField);
 nfl.addEventListener("click", nflField);
 volley.addEventListener("click", vBallCourt);
 
-nflField();
-
 function aguarde() {
+  ctx.setLineDash([0, 0]);
   ctx.fillStyle = "white";
   ctx.font = "30px Arial";
   ctx.textAlign = "center";
@@ -46,12 +47,17 @@ function nflField() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   setTimeout(() => {
     leftSideNFLField();
-    // rightSideNFLField()
-  }, 1001);
-  leftSideNFLField();
-
+    rightSideNFLField();
+    ctx.drawImage(
+      nflLogo,
+      canvas.width / 2 - nflLogo.width / 16,
+      canvas.height / 2 - nflLogo.height / 16,
+      nflLogo.width / 8,
+      nflLogo.height / 8
+    );
+  }, 1100);
   canvas.style.background = "rgb(41,165,0)";
-  // aguarde();
+  aguarde();
 }
 
 function vBallCourt() {
@@ -186,7 +192,7 @@ function rightSideField() {
 }
 
 function leftSideNFLField() {
-  // marcações de 10 jardas e end zone
+  // marcações de 5 jardas e end zone
   ctx.beginPath();
   ctx.fillStyle = "rgb(9,93,12)";
   ctx.strokeStyle = "white";
@@ -197,7 +203,7 @@ function leftSideNFLField() {
   ctx.stroke();
   ctx.closePath();
 
-  for (let i = 1 / 12; i <= 1 / 2; i += 1 / 24) {
+  for (let i = 3 / 24; i <= 1 / 2; i += 1 / 24) {
     ctx.beginPath();
     ctx.lineWidth = 2;
     ctx.moveTo(canvas.width * i, 0);
@@ -205,26 +211,48 @@ function leftSideNFLField() {
     ctx.stroke();
   }
 
-  // marcações superiores
-  for (let i = 1 / 12; i < 1 / 2; i += (1 / 24) / 5) {
-    if (i % ((1/12) + (1 / 24)) == 0) {
-      console.log(i)
-    } else {
-      ctx.beginPath();
-      ctx.lineWidth = 3.5;
-      ctx.moveTo(canvas.width * i, 10);
-      ctx.lineTo(canvas.width * i, 15);
-      ctx.stroke();
-    }
+  // marcações menores
+  for (let i = 1 / 12; i <= 1 / 2; i += 1 / 24 / 5) {
+    ctx.beginPath();
+    ctx.moveTo(canvas.width * i, 0);
+    ctx.lineTo(canvas.width * i, 15);
+    ctx.moveTo(canvas.width * i, 140);
+    ctx.lineTo(canvas.width * i, 150);
+    ctx.moveTo(canvas.width * i, 250);
+    ctx.lineTo(canvas.width * i, 260);
+    ctx.moveTo(canvas.width * i, 385);
+    ctx.lineTo(canvas.width * i, 400);
+    ctx.stroke();
+    ctx.closePath();
   }
+
+  // marcações das jardas
+  let yard = 0;
+  for (let i = 1 / 8; i < 2 / 5; i += 1 / 12) {
+    yard += 10;
+    ctx.fillStyle = "white";
+    ctx.font = "30px Tahoma";
+    canvas.textAlign = "center";
+    ctx.fillText(yard, canvas.width * i + 32, 350);
+  }
+
+  yard = 50;
+  for (let i = 13 / 24; i < 0.8; i += 1 / 12) {
+    yard -= 10;
+    ctx.fillStyle = "white";
+    ctx.font = "30px Tahoma";
+    canvas.textAlign = "center";
+    ctx.fillText(yard, canvas.width * i + 32, 350);
+  }
+  ctx.fillText("50", canvas.width / 2, 350);
 }
 
 function rightSideNFLField() {
-  ctx.translate(canvas.width, 0);
-  ctx.scale(-1, 1);
+  ctx.translate(canvas.width, canvas.height);
+  ctx.scale(-1, -1);
   leftSideNFLField();
-  ctx.translate(canvas.width, 0);
-  ctx.scale(-1, 1);
+  ctx.translate(canvas.width, canvas.height);
+  ctx.scale(-1, -1);
 }
 
 function leftSidevBall() {

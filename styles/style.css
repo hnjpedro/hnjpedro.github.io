@@ -5,7 +5,39 @@ body {
 }
 
 canvas {
-    border: 3px solid white;
-    background-color: rgb(180,152,96);
-  }
-  
+  border: 3px solid white;
+  background-color: rgb(180, 152, 96);
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-evenly !important;
+  width: 800px
+}
+
+button {
+  width: 120px;
+  height: 60px;
+border-radius: 5px;
+background-color: green;
+color: white;
+font-weight: bold;
+cursor: pointer;
+box-shadow: 6px 4px 4px 2px rgba(0,0,0,.5)
+}
+
+#bball-court::before {
+  content: "🏀 ";
+}
+
+#soccer::before {
+  content: "⚽ ";
+}
+
+#nfl::before {
+  content: '🏈 '
+}
+
+#vball-court::before {
+  content: '🏐 '
+}
