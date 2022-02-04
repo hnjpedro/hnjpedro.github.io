@@ -28,7 +28,7 @@ function bBallCourt() {
   setTimeout(() => {
     leftSideCourt();
     rightSideCourt();
-  }, 1001);
+  }, 1200);
   canvas.style.background = "rgb(180,152,96)";
   aguarde();
 }
@@ -38,7 +38,7 @@ function footballField() {
   setTimeout(() => {
     leftSideField();
     rightSideField();
-  }, 1001);
+  }, 1200);
   canvas.style.background = "#4c8527";
   aguarde();
 }
@@ -55,7 +55,7 @@ function nflField() {
       nflLogo.width / 8,
       nflLogo.height / 8
     );
-  }, 1100);
+  }, 1200);
   canvas.style.background = "rgb(41,165,0)";
   aguarde();
 }
@@ -65,7 +65,7 @@ function vBallCourt() {
   setTimeout(() => {
     leftSidevBall();
     rightSidevBall();
-  }, 1001);
+  }, 1200);
   canvas.style.background = "#10abbf";
   aguarde();
 }
