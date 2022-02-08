@@ -181,6 +181,12 @@ function leftSideField() {
   ctx.beginPath();
   ctx.arc(400, 200, 50, Math.PI * 0.5, Math.PI * 1.5);
   ctx.stroke();
+  ctx.closePath();
+
+  ctx.beginPath();
+  ctx.fillStyle = "white";
+  ctx.arc(canvas.width/2, canvas.height/2, 7, Math.PI * 1.5, Math.PI /2);
+  ctx.fill();
 }
 
 function rightSideField() {
